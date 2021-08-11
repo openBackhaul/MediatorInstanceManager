@@ -26,4 +26,4 @@ REST interface for addressing the Mediator Instance Manager inside the mediator 
 - [ApplicationPattern/issues](../../issues)
 
 ### Comments
-
+This REST interface shall integrate the management of the vendor specific mediators into the MBH SDN application layer at Telefonica Germany.
