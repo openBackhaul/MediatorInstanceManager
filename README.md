@@ -4,10 +4,6 @@ REST interface for addressing the Mediator Instance Manager inside the mediator 
 ### Branch
 - 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
 
-### Documentation
-- [Documentation of the ApplicationPattern](https://github.com/openBackhaul/ApplicationPattern/tree/tsi)
-- [211108_Express_Introduction](./211107_MW_SDN_AppLayer_Express.pptx)
-
 ### Services
 - [xMediatorInstanceManager_0.0.1_tsi.211126.1845+services.1](./xMediatorInstanceManager_0.0.1_tsi.211126.1845+services.1.xlsx)
 
