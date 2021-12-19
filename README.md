@@ -20,7 +20,7 @@ REST interface for addressing the Mediator Instance Manager inside the mediator 
 -
 
 ### Publication
-- Potentially candidate for ONF TR-532 v2.0 
+- Potential candidate for ONF TR-532 v2.0 
 
 ### Aspired Model Classification
 - Live Network
