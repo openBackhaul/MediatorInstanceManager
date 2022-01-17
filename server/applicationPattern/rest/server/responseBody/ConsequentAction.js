@@ -12,15 +12,17 @@ class ConsequentAction {
 
   static label;
   static request;
+  static displayInNewBrowserWindow;
 
   /**
    * @constructor 
    * @param {String} label label of the consequent action.
    * @param {String} request url that needs to be addressed to perform the consequent action.
    **/
-  constructor(label, request) {
+  constructor(label, request, displayInNewBrowserWindow) {
     this.label = label;
     this.request = request;
+    this.displayInNewBrowserWindow = displayInNewBrowserWindow;
   }
 
 }

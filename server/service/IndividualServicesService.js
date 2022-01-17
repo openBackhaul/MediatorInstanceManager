@@ -1,6 +1,15 @@
 'use strict';
 
+const tcpServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
+const operationServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
+const httpServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
+const consequentAction = require('../applicationPattern/rest/server/responseBody/ConsequentAction');
+const responseValue = require('../applicationPattern/rest/server/responseBody/ResponseValue');
+const onfAttributeFormatter = require('../applicationPattern/onfModel/utility/OnfAttributeFormatter');
 
+const serviceType = "Basic";
+const protocol = "https";
+const applicationPrefix = "xmim";
 /**
  * Initiates process of embedding a new release
  *
@@ -100,32 +109,49 @@ exports.provideMediatorInstance = function(body,user,originator,xCorrelator,trac
 
 
 /**
- * Starts application in generic representation
+ * @description Starts application in generic representation
  *
- * user String User identifier from the system starting the service call
- * originator String 'Identification for the system consuming the API, as defined in  [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]' 
- * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
- * traceIndicator String Sequence of request numbers along the flow
- * customerJourney String Holds information supporting customer’s journey to which the execution applies
- * returns inline_response_200
+ * @param {String} user String User identifier from the system starting the service call
+ * @param {String} originator String 'Identification for the system consuming the API, as defined in  [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]' 
+ * @param {String} xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
+ * @param {String} traceIndicator String Sequence of request numbers along the flow
+ * @param {String} customerJourney String Holds information supporting customer’s journey to which the execution applies
+ * @param {String} returns inline_response_200_2
  **/
 exports.startApplicationInGenericRepresentation = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "consequent-action-list" : [ {
-    "label" : "Inform about Application",
-    "request" : "https://10.118.132.1:99999/v1/inform-about-application-in-generic-representation",
-    "display-in-new-browser-window" : false
-  } ],
-  "response-value-list" : [ {
-    "field-name" : "applicationName",
-    "value" : "xMediatorInstanceManager",
-    "datatype" : "String"
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+  return new Promise(async function (resolve, reject) {
+    let response = {};
+    try {
+      /****************************************************************************************
+       * Preparing consequent-action-list for response body
+       ****************************************************************************************/
+      let consequentActionList = [];
+      let baseUrl = protocol + "://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
+      let LabelForInformAboutApplication = "Inform about Application";
+      let requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationName(applicationPrefix + "-0-0-1-op-s-2002");
+      let consequentActionForInformAboutApplication = new consequentAction(LabelForInformAboutApplication, requestForInformAboutApplication,false);
+      consequentActionList.push(consequentActionForInformAboutApplication);
+
+      /****************************************************************************************
+       * Preparing response-value-list for response body
+       ****************************************************************************************/
+      let responseValueList = [];
+      let applicationName = await httpServerInterface.getApplicationName();
+      let reponseValue = new responseValue("applicationName", applicationName, typeof applicationName);
+      responseValueList.push(reponseValue);
+
+      /****************************************************************************************
+       * Setting 'application/json' response body
+       ****************************************************************************************/
+      response['application/json'] = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase({
+        consequentActionList,
+        responseValueList
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    if (Object.keys(response).length > 0) {
+      resolve(response[Object.keys(response)[0]]);
     } else {
       resolve();
     }
