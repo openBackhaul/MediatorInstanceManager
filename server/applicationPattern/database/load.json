@@ -479,6 +479,7 @@
                     "xmim-0-0-1-op-s-0008",
                     "xmim-0-0-1-op-s-0009",
                     "xmim-0-0-1-op-s-0010",
+                    "xmim-0-0-1-op-s-0011",
                     "xmim-0-0-1-op-s-1000",
                     "xmim-0-0-1-op-s-2001",
                     "xmim-0-0-1-op-s-2002",
@@ -2044,10 +2045,15 @@
                             {
                                 "local-id": "109",
                                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                                "logical-termination-point": "xmim-0-0-1-op-s-3001"
+                                "logical-termination-point": "xmim-0-0-1-op-s-0011"
                             },
                             {
                                 "local-id": "200",
+                                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                                "logical-termination-point": "xmim-0-0-1-op-s-3001"
+                            },
+                            {
+                                "local-id": "201",
                                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
                                 "logical-termination-point": "xmim-0-0-1-op-c-0071"
                             }
