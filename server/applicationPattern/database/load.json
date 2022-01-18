@@ -2048,12 +2048,12 @@
                                 "logical-termination-point": "xmim-0-0-1-op-s-0011"
                             },
                             {
-                                "local-id": "200",
+                                "local-id": "110",
                                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                                 "logical-termination-point": "xmim-0-0-1-op-s-3001"
                             },
                             {
-                                "local-id": "201",
+                                "local-id": "200",
                                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
                                 "logical-termination-point": "xmim-0-0-1-op-c-0071"
                             }
