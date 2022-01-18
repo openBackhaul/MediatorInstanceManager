@@ -14,7 +14,7 @@ REST interface for addressing the Mediator Instance Manager inside the mediator 
 - [xMediatorInstanceManager_0.0.2_tsi.220114.2100](./xMediatorInstanceManager_0.0.2_tsi.220114.2100.yaml)
 
 ### Load File (JSON)
-- [xMediatorInstanceManager_0.0.2_tsi.220114.2100+data.2](./xMediatorInstanceManager_0.0.2_tsi.220114.2100+data.2.json)
+- [xMediatorInstanceManager_0.0.2_tsi.220114.2100+data.3](./xMediatorInstanceManager_0.0.2_tsi.220114.2100+data.3.json)
 
 ### Test Cases (Postman Export) and Data File
 -
