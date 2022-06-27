@@ -5,7 +5,7 @@ REST interface for addressing the Mediator Instance Manager inside the mediator 
 - 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
 
 ### Services
-- [xMediatorInstanceManager_0.0.2_tsi.220114.2100+services.1](./xMediatorInstanceManager_0.0.2_tsi.220114.2100+services.1.xlsx)
+- [xMediatorInstanceManager+services](./xMediatorInstanceManager+services.yaml)
 
 ### Forwardings
 - [xMediatorInstanceManager_0.0.2_tsi.220114.2100+forwardings.1](./xMediatorInstanceManager_0.0.2_tsi.220114.2100+forwardings.1.xlsx)
