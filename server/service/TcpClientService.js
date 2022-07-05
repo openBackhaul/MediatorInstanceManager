@@ -1,5 +1,5 @@
 'use strict';
-var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
+var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 /**
  * Returns remote IPv4 address
@@ -10,7 +10,7 @@ var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
 exports.getTcpClientRemoteIpv4Address = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "tcp-client-interface-1-0:remote-address": value
@@ -37,7 +37,7 @@ exports.getTcpClientRemoteIpv4Address = function (url) {
 exports.getTcpClientRemotePort = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "tcp-client-interface-1-0:remote-port": value
@@ -65,7 +65,7 @@ exports.putTcpClientRemoteIpv4Address = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
       console.log(body);
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -84,7 +84,7 @@ exports.putTcpClientRemoteIpv4Address = function (url, body) {
 exports.putTcpClientRemotePort = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();

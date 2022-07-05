@@ -1,10 +1,10 @@
 'use strict';
 
-var BasicServices = require('../service/BasicServicesService');
-var responseCodeEnum = require('../applicationPattern/rest/server/ResponseCode');
-var restResponseHeader = require('../applicationPattern/rest/server/ResponseHeader');
-var restResponseBuilder = require('../applicationPattern/rest/server/ResponseBuilder');
-var executionAndTraceService = require('../applicationPattern/logging/ExecutionAndTraceService');
+var BasicServices = require('onf-core-model-ap-bs/basicServices/BasicServicesService');
+var responseCodeEnum = require('onf-core-model-ap/applicationPattern/rest/server/ResponseCode');
+var restResponseHeader = require('onf-core-model-ap/applicationPattern/rest/server/ResponseHeader');
+var restResponseBuilder = require('onf-core-model-ap/applicationPattern/rest/server/ResponseBuilder');
+var executionAndTraceService = require('onf-core-model-ap-bs/basicServices/ExecutionAndTraceService');
 
 module.exports.embedYourself = async function embedYourself(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   try {

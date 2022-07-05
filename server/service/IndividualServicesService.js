@@ -1,11 +1,11 @@
 'use strict';
 
-const tcpServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
-const operationServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
-const httpServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
-const consequentAction = require('../applicationPattern/rest/server/responseBody/ConsequentAction');
-const responseValue = require('../applicationPattern/rest/server/responseBody/ResponseValue');
-const onfAttributeFormatter = require('../applicationPattern/onfModel/utility/OnfAttributeFormatter');
+const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
+const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
+const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
+const consequentAction = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ConsequentAction');
+const responseValue = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ResponseValue');
+const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
 
 const serviceType = "Basic";
 const protocol = "https";
@@ -128,7 +128,7 @@ exports.startApplicationInGenericRepresentation = function(user,originator,xCorr
       let consequentActionList = [];
       let baseUrl = protocol + "://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
       let LabelForInformAboutApplication = "Inform about Application";
-      let requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationName(applicationPrefix + "-0-0-1-op-s-2002");
+      let requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync(applicationPrefix + "-0-0-1-op-s-2002");
       let consequentActionForInformAboutApplication = new consequentAction(LabelForInformAboutApplication, requestForInformAboutApplication,false);
       consequentActionList.push(consequentActionForInformAboutApplication);
 
@@ -136,7 +136,7 @@ exports.startApplicationInGenericRepresentation = function(user,originator,xCorr
        * Preparing response-value-list for response body
        ****************************************************************************************/
       let responseValueList = [];
-      let applicationName = await httpServerInterface.getApplicationName();
+      let applicationName = await httpServerInterface.getApplicationNameAsync();
       let reponseValue = new responseValue("applicationName", applicationName, typeof applicationName);
       responseValueList.push(reponseValue);
 

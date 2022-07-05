@@ -1,5 +1,5 @@
 'use strict';
-var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
+var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 /**
  * Returns entire data tree
@@ -9,7 +9,7 @@ var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
 exports.getControlConstruct = function () {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase("core-model-1-4:control-construct");
+      var value = await fileOperation.readFromDatabaseAsync("core-model-1-4:control-construct");
       var response = {};
       response['application/json'] = {
         "core-model-1-4:control-construct": value
