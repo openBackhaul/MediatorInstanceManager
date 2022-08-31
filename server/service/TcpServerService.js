@@ -1,5 +1,5 @@
 'use strict';
-var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
+var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 /**
  * Returns IPv4 address of the server
@@ -10,7 +10,7 @@ var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
 exports.getTcpServerLocalIpv4Address = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "tcp-server-interface-1-0:local-address": value
@@ -36,7 +36,7 @@ exports.getTcpServerLocalIpv4Address = function (url) {
 exports.getTcpServerLocalPort = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "tcp-server-interface-1-0:local-port": value
@@ -63,7 +63,7 @@ exports.getTcpServerLocalPort = function (url) {
 exports.putTcpServerLocalIpv4Address = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -82,7 +82,7 @@ exports.putTcpServerLocalIpv4Address = function (url, body) {
 exports.putTcpServerLocalPort = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();

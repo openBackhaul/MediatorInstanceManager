@@ -1,5 +1,5 @@
 'use strict';
-var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
+var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 /**
  * Returns detailed logging configuration.
@@ -9,7 +9,7 @@ var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
 exports.getOperationClientDetailedLoggingIsOn = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:detailed-logging-is-on": value
@@ -35,7 +35,7 @@ exports.getOperationClientDetailedLoggingIsOn = function (url) {
 exports.getOperationClientLifeCycleState = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:life-cycle-state": value
@@ -61,7 +61,7 @@ exports.getOperationClientLifeCycleState = function (url) {
 exports.getOperationClientOperationKey = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:operation-key": value
@@ -86,7 +86,7 @@ exports.getOperationClientOperationKey = function (url) {
 exports.getOperationClientOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:operation-name": value
@@ -112,7 +112,7 @@ exports.getOperationClientOperationName = function (url) {
 exports.getOperationClientOperationalState = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:operational-state": value
@@ -138,7 +138,7 @@ exports.getOperationClientOperationalState = function (url) {
 exports.putOperationClientDetailedLoggingIsOn = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -157,7 +157,7 @@ exports.putOperationClientDetailedLoggingIsOn = function (url, body) {
 exports.putOperationClientOperationKey = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -176,7 +176,7 @@ exports.putOperationClientOperationKey = function (url, body) {
 exports.putOperationClientOperationName = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();

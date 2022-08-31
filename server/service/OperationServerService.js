@@ -1,5 +1,5 @@
 'use strict';
-var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
+var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 /**
  * Returns the configured life cycle state of the operation
@@ -10,7 +10,7 @@ var fileOperation = require('../applicationPattern/databaseDriver/JSONDriver');
 exports.getOperationServerLifeCycleState = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-server-interface-1-0:life-cycle-state": value
@@ -36,7 +36,7 @@ exports.getOperationServerLifeCycleState = function (url) {
 exports.getOperationServerOperationKey = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-server-interface-1-0:operation-key": value
@@ -63,7 +63,7 @@ exports.getOperationServerOperationKey = function (url) {
 exports.getOperationServerOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-server-interface-1-0:operation-name": value
@@ -89,7 +89,7 @@ exports.getOperationServerOperationName = function (url) {
 exports.putOperationServerLifeCycleState = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -108,7 +108,7 @@ exports.putOperationServerLifeCycleState = function (url, body) {
 exports.putOperationServerOperationKey = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();

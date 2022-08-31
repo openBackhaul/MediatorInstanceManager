@@ -20,6 +20,8 @@
     "moment": "^2.29.1",
     "node-statsd": "^0.1.1",
     "oas3-tools": "^2.2.3",
+    "onf-core-model-ap-bs": "1.0.0",
+    "onf-core-model-ap": "1.0.0",
     "randexp": "^0.5.3",
     "response-time": "^2.3.2"
   }
