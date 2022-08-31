@@ -7,9 +7,6 @@ const consequentAction = require('onf-core-model-ap/applicationPattern/rest/serv
 const responseValue = require('onf-core-model-ap/applicationPattern/rest/server/responseBody/ResponseValue');
 const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
 
-const serviceType = "Basic";
-const protocol = "https";
-const applicationPrefix = "xmim";
 /**
  * Initiates process of embedding a new release
  *
@@ -118,7 +115,7 @@ exports.provideMediatorInstance = function(body,user,originator,xCorrelator,trac
  * @param {String} customerJourney String Holds information supporting customer’s journey to which the execution applies
  * @param {String} returns inline_response_200_2
  **/
-exports.startApplicationInGenericRepresentation = function(user,originator,xCorrelator,traceIndicator,customerJourney) {
+ exports.startApplicationInGenericRepresentation = function (user, originator, xCorrelator, traceIndicator, customerJourney) {
   return new Promise(async function (resolve, reject) {
     let response = {};
     try {
@@ -126,10 +123,19 @@ exports.startApplicationInGenericRepresentation = function(user,originator,xCorr
        * Preparing consequent-action-list for response body
        ****************************************************************************************/
       let consequentActionList = [];
-      let baseUrl = protocol + "://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
+
+      let protocol = "http";
+      let applicationAddress = await tcpServerInterface.getLocalAddress();
+      let applicationPort = await tcpServerInterface.getLocalPort();
+      let baseUrl = protocol + "://" + applicationAddress + ":" + applicationPort;
+
       let LabelForInformAboutApplication = "Inform about Application";
-      let requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync(applicationPrefix + "-0-0-1-op-s-2002");
-      let consequentActionForInformAboutApplication = new consequentAction(LabelForInformAboutApplication, requestForInformAboutApplication,false);
+      let requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync("xmim-0-0-1-op-s-2002");
+      let consequentActionForInformAboutApplication = new consequentAction(
+        LabelForInformAboutApplication,
+        requestForInformAboutApplication,
+        false
+      );
       consequentActionList.push(consequentActionForInformAboutApplication);
 
       /****************************************************************************************
@@ -137,7 +143,11 @@ exports.startApplicationInGenericRepresentation = function(user,originator,xCorr
        ****************************************************************************************/
       let responseValueList = [];
       let applicationName = await httpServerInterface.getApplicationNameAsync();
-      let reponseValue = new responseValue("applicationName", applicationName, typeof applicationName);
+      let reponseValue = new responseValue(
+        "applicationName",
+        applicationName,
+        typeof applicationName
+      );
       responseValueList.push(reponseValue);
 
       /****************************************************************************************

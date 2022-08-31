@@ -16452,7 +16452,7 @@ components:
         datatype:
           type: string
           enum:
-          - String
+          - string
     inline_response_200_inputvaluelist:
       required:
       - field-name
@@ -16921,7 +16921,7 @@ components:
         datatype:
           type: string
           enum:
-          - String
+          - string
     inline_response_200_5_consequentactionlist:
       required:
       - display-in-new-browser-window
@@ -16965,7 +16965,7 @@ components:
         datatype:
           type: string
           enum:
-          - String
+          - string
     inline_response_200_7_consequentactionlist:
       required:
       - display-in-new-browser-window
