@@ -1,35 +1,23 @@
-# MediatorInstanceManager
-REST interface for addressing the Mediator Instance Manager inside the mediator VM
+# xMediatorInstanceManager  
+REST interface for managing the mediator process instances inside the mediator VM  
 
-### Branch
-- 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
+### Location  
+The xMediatorInstanceManager (xMIM) is part of the HighPerformanceNetworkInterface.  
 
-### Services
-- [xMediatorInstanceManager+services](./xMediatorInstanceManager+services.yaml)
+### Description  
+The vendor specific MediatorInstanceManagers, which are located inside the respective mediator VMs and administrating the individual mediator processes, are equipped with a harmonized REST API.  
+This allows the MW SDN application layer to manage the vendor specific mediator processes.  
+The xMediatorInstanceManager defines that REST API.  
 
-### Forwardings
-- [xMediatorInstanceManager_0.0.2_tsi.220114.2100+forwardings.1](./xMediatorInstanceManager_0.0.2_tsi.220114.2100+forwardings.1.xlsx)
+A full integration of the MediatorInstanceManagers into the MW SDN application layer via the ApplicationPattern might be future work.  
 
-### Open API specification (Swagger)
-- [xMediatorInstanceManager_0.0.2_tsi.220114.2100](./xMediatorInstanceManager_0.0.2_tsi.220114.2100.yaml)
+### Relevance
+The xMediatorInstanceManager allows automation of the management of the approximately 42,000 mediator processes.  
 
-### Load File (JSON)
-- [xMediatorInstanceManager_0.0.2_tsi.220114.2100+data.4](./xMediatorInstanceManager_0.0.2_tsi.220114.2100+data.4.json)
-
-### Test Cases (Postman Export) and Data File
--
-
-### Publication
-- Potential candidate for ONF TR-532 v2.0 
-
-### Implementation
-- [Server side stub plus elements, which are common to all implementations](./server)
-
-### Aspired Model Classification
-- Live Network
-
-### Open Issue List
-- [ApplicationPattern/issues](../../issues)
+### Resources
+- [Specification](./spec/)
+- [TestSuite](./testing/)
+- [Implementation](./server/)
 
 ### Comments
-This REST interface shall integrate the management of the vendor specific mediators into the MBH SDN application layer at Telefonica Germany.
+./.

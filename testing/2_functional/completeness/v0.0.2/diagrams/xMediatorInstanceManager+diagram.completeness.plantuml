@@ -1,0 +1,54 @@
+@startuml xMediatorInstanceManager+diagram.completeness
+skinparam responseMessageBelowArrow true
+
+title
+xMediatorInstanceManager+test.completeness
+end title
+
+participant "Postman" as Postman #Orange
+participant "Data" as Data
+participant "Collection" as Collection
+
+participant "/v1/provide-mediator-instance" as PMI #LightBlue
+participant "/v1/dismantle-mediator-instance" as DMI #LightBlue
+participant "/v1/list-mediator-instances" as LMI #LightBlue
+
+group Preparation
+  Data --\\o Postman : {servers,\n device-name,\n device-ip-address,\n device-kind-name}
+  activate Postman
+  Postman --\\o Collection : {servers,\n device-name,\n device-ip-address,\n device-kind-name}
+end
+
+group /v1/provide-mediator-instance
+  Collection --\\o Postman : {servers,\n device-name,\n device-ip-address,\n device-kind-name}
+  Postman -> PMI : {device-name, device-ip-address, device-kind-name}
+  Postman <-- PMI : ResponseCode {...}
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+group /v1/dismantle-mediator-instance
+  Collection --\\o Postman : {servers, device-name}
+  Postman -> DMI : {device-name}
+  Postman <-- DMI : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode != 404
+  end note
+end
+
+group /v1/list-mediator-instances
+  Collection --\\o Postman : {servers}
+  Postman -> LMI
+  Postman <-- LMI : ResponseCode {...}
+  note right Postman #Orange
+    check for ResponseCode==200
+  end note
+  note right Postman #Orange
+    validate ResponseBody against schema
+  end note
+end
+
+deactivate Postman
+
+@enduml

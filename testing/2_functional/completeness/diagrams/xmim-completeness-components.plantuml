@@ -1,0 +1,17 @@
+@startuml xmim-completeness-components
+
+skinparam componentStyle rectangle
+
+title
+xMediatorInstanceManager+test.functional.completeness
+end title
+
+package "completeness" {
+  component [<u>Postman</u>\n\nxMediatorInstanceManager+test.completeness.json] as TCC #Orange 
+  component [<u>Application under Test</u>\n\nxMediatorInstanceManager] as AUT #LightBlue 
+
+  TCC -> AUT
+
+}
+
+@enduml

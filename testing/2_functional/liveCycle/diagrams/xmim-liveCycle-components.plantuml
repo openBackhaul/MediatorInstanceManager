@@ -1,0 +1,19 @@
+@startuml xmim-liveCycle-components
+
+skinparam componentStyle rectangle
+
+title
+xMediatorInstanceManager+test.functional.liveCycle
+end title
+
+package "liveCycle" {
+  component [<u>Postman</u>\n\nxMediatorInstanceManager+test.liveCycle.json] as TCC #Orange
+  component [<u>Application under Test</u>\n\nxMediatorInstanceManager] as AUT #LightBlue
+  component [<u>Device</u>\n\nEricsson\nHuawei\nSIAE] as Device #Gray
+
+  TCC -> AUT
+  AUT .> Device : mediator \nprocess \nconnects
+
+}
+
+@enduml

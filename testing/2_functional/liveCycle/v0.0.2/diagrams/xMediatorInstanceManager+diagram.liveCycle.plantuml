@@ -1,0 +1,106 @@
+@startuml xMediatorInstanceManager+diagram.liveCycle
+skinparam responseMessageBelowArrow true
+
+title
+xMediatorInstanceManager+test.liveCycle
+end title
+
+participant "Postman" as Postman #Orange
+participant "Data" as Data
+participant "Collection" as Collection
+
+participant "/v1/provide-mediator-instance" as PMI #LightBlue
+participant "Device" as Device #Gray
+participant "/v1/dismantle-mediator-instance" as DMI #LightBlue
+participant "/v1/list-mediator-instances" as LMI #LightBlue
+
+group Preparation
+  Data --\\o Postman : {servers,\n device-name,\n device-ip-address,\n device-kind-name}
+  activate Postman
+  Postman --\\o Collection : {servers,\n device-name,\n device-ip-address,\n device-kind-name}
+end
+
+group /v1/list-mediator-instances
+  Collection --\\o Postman : {servers}
+  Postman -> LMI
+  Postman <-- LMI : ResponseCode {...}
+  note right Postman #Orange
+    check for ResponseCode==200
+  end note
+  note right Postman #Orange
+    validate ResponseBody against schema
+  end note
+  Collection --\\o Postman : {device-name}
+  note over Postman #White
+    IF entry with device-name already exists
+    THEN skipRemainingSteps=true
+  end note
+  Postman --\\o Collection : skipRemainingSteps
+end
+
+group /v1/provide-mediator-instance
+  Collection --\\o Postman : {servers,\n device-name,\n device-ip-address,\n device-kind-name,\n skipRemainingSteps}
+  note over Postman #Yellow
+    IF NOT skipRemainingSteps
+  end note
+  Postman -> PMI : {device-name, device-ip-address, device-kind-name}
+  activate PMI
+    PMI -[#LightGray]-> Device
+    Postman <-- PMI : ResponseCode {mediator-instance-ip-address,\n mediator-instance-netconf-port}
+  deactivate PMI
+  note right Postman #Orange
+    check for ResponseCode==200
+  end note
+  note right Postman #Orange
+    validate ResponseBody against schema
+  end note
+  Postman --\\o Collection : {mediator-instance-ip-address,\n mediator-instance-netconf-port}
+end
+
+group /v1/list-mediator-instances
+  Collection --\\o Postman : {servers,\n skipRemainingSteps}
+  note over Postman #Yellow
+    IF NOT skipRemainingSteps
+  end note
+  Postman -> LMI
+  Postman <-- LMI : ResponseCode {...}
+  Collection --\\o Postman : {device-name,\n device-ip-address,\n device-kind-name,\n mediator-instance-ip-address,\n mediator-instance-netconf-port}
+  note over Postman #White
+    IF NO new entry with device-name
+    THEN skipRemainingSteps=true
+  end note
+  Postman --\\o Collection : skipRemainingSteps
+  note right Postman #Orange
+    check entry with device-name for identical
+    device-ip-address, device-kind-name, mediator-instance-ip-address and mediator-instance-netconf-port
+  end note
+end
+
+group /v1/dismantle-mediator-instance
+  Collection --\\o Postman : {servers,\n device-name,\n skipRemainingSteps}
+  note over Postman #Yellow
+    IF NOT skipRemainingSteps
+  end note
+  Postman -> DMI : {device-name}
+  Postman <-- DMI : ResponseCode
+  note right Postman #Orange
+    check for ResponseCode==204
+  end note
+end
+
+group /v1/list-mediator-instances
+  Collection --\\o Postman : {servers,\n skipRemainingSteps}
+  note over Postman #Yellow
+    IF NOT skipRemainingSteps
+  end note
+  Postman -> LMI
+  Postman <-- LMI : ResponseCode {...}
+  Collection --\\o Postman : {device-name}
+  note right Postman #Orange
+    check ResponseBody for NO entry with device-name
+  end note
+end
+
+deactivate Postman
+
+@enduml

@@ -1,0 +1,13 @@
+testing-stage: 'Functional Testing'
+responsible-person-list:
+  - name: 'Thorsten Heinze'
+    role: 'Application Owner'
+    email-address: 'thorsten.heinze@telefonica.com'
+release-list:
+  - specification-tag: 'v0.0.2_spec'
+    testcase-list:
+      - testcase-name: 'completeness.v0.0.2'
+        type-of-testcase: 'Postman Testcase Collection'
+        postman-export-file: './completeness/v0.0.2/testcases/xMediatorInstanceManager+test.completeness.json'
+        data-file: './completeness/v0.0.2/testcases/xMediatorInstanceManager+data.completeness.json'
+        simulator-file-list: []

@@ -1,0 +1,288 @@
+﻿openapi: 3.0.0
+info:
+  title: xMediatorInstanceManager+simu
+  version: 0.0.2
+
+paths:
+########################################################################################################################
+#   Service Layer - Individual Part
+########################################################################################################################
+  /v1/list-mediator-instances-a:
+    post:
+      summary: 'Exports list of all mediators'
+      responses:
+        '200':
+          description: 'Mediators listed'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - device-name
+                    - device-kind-name
+                    - mediator-instance-ip-address
+                    - mediator-instance-netconf-port
+                    - device-ip-address
+                  properties:
+                    device-name:
+                      type: string
+                    device-kind-name:
+                      type: string
+                    mediator-instance-ip-address:
+                      type: string
+                    mediator-instance-netconf-port:
+                      type: integer
+                    device-ip-address:
+                      type: string
+                example:
+                  - device-name: '104251111'
+                    device-kind-name: 'RTN_900'
+                    mediator-instance-ip-address: '10.118.132.2'
+                    mediator-instance-netconf-port: 1024
+                    device-ip-address: '10.118.134.256'
+  /v1/provide-mediator-instance:
+    post:
+      summary: 'Creates mediator instance'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-name
+                - device-ip-address
+                - device-kind-name
+              properties:
+                device-name:
+                  type: string
+                  minLength: 3
+                device-ip-address:
+                  type: string
+                  pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+                device-kind-name:
+                  type: string
+              example:
+                device-name: '305251234'
+                device-ip-address: '10.118.133.1'
+                device-kind-name: 'AGS_20'
+      responses:
+        '200':
+          description: 'Mediator created'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - mediator-instance-ip-address
+                  - mediator-instance-netconf-port
+                properties:
+                  mediator-instance-ip-address:
+                    type: string
+                  mediator-instance-netconf-port:
+                    type: integer
+                example:
+                  mediator-instance-ip-address: '10.118.132.1'
+                  mediator-instance-netconf-port: 1
+  /v1/list-mediator-instances-b:
+    post:
+      summary: 'Exports list of all mediators'
+      responses:
+        '200':
+          description: 'Mediators listed'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - device-name
+                    - device-kind-name
+                    - mediator-instance-ip-address
+                    - mediator-instance-netconf-port
+                    - device-ip-address
+                  properties:
+                    device-name:
+                      type: string
+                    device-kind-name:
+                      type: string
+                    mediator-instance-ip-address:
+                      type: string
+                    mediator-instance-netconf-port:
+                      type: integer
+                    device-ip-address:
+                      type: string
+                example:
+                  - device-name: '305251234'
+                    device-kind-name: 'AGS_20'
+                    mediator-instance-ip-address: '10.118.132.1'
+                    mediator-instance-netconf-port: 1
+                    device-ip-address: '10.118.133.1'
+                  - device-name: '104251111'
+                    device-kind-name: 'RTN_900'
+                    mediator-instance-ip-address: '10.118.132.2'
+                    mediator-instance-netconf-port: 1024
+                    device-ip-address: '10.118.134.256'
+  /v1/dismantle-mediator-instance:
+    post:
+      summary: 'Deletes mediator instance'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - device-name
+              properties:
+                device-name:
+                  type: string
+                  minLength: 3
+              example:
+                device-name: '305251234'
+      responses:
+        '204':
+          description: 'Mediator deleted'
+  /v1/list-mediator-instances-c:
+    post:
+      summary: 'Exports list of all mediators'
+      responses:
+        '200':
+          description: 'Mediators listed'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - device-name
+                    - device-kind-name
+                    - mediator-instance-ip-address
+                    - mediator-instance-netconf-port
+                    - device-ip-address
+                  properties:
+                    device-name:
+                      type: string
+                    device-kind-name:
+                      type: string
+                    mediator-instance-ip-address:
+                      type: string
+                    mediator-instance-netconf-port:
+                      type: integer
+                    device-ip-address:
+                      type: string
+                example:
+                  - device-name: '104251111'
+                    device-kind-name: 'RTN_900'
+                    mediator-instance-ip-address: '10.118.132.2'
+                    mediator-instance-netconf-port: 1024
+                    device-ip-address: '10.118.134.256'
+
+
+########################################
+#   Common Components
+########################################
+components:
+  parameters:
+    user:
+      name: user
+      in: header
+      required: true
+      schema: 
+        type: string
+        example: 'User Name'
+      description: 'User identifier from the system starting the service call'
+    originator:
+      name: originator
+      in: header
+      required: true
+      schema: 
+        type: string
+        minLength: 3
+        example: 'Resolver'
+      description: >
+        'Identification for the system consuming the API, as defined in
+         [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+    x-correlator:
+      name: x-correlator
+      in: header
+      required: true
+      schema: 
+        type: string
+        pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+        description: 'Empty string accepted from external applications.'
+        example: '550e8400-e29b-11d4-a716-446655440000'
+      description: 'UUID for the service execution flow that allows to correlate requests and responses'
+    trace-indicator:
+      name: trace-indicator
+      in: header
+      required: true
+      schema: 
+        type: string
+        pattern: '^([0-9]+)(\.([0-9]+))*$'
+        description: 'Empty string accepted from external applications.'
+        example: '1.3.1'
+      description: 'Sequence of request numbers along the flow'
+    customer-journey:
+      name: customer-journey
+      in: header
+      required: true
+      schema: 
+        type: string
+        example: 'Unknown value'
+      description: 'Holds information supporting customer’s journey to which the execution applies'
+  responses:
+    responseForErroredServiceRequests:
+      description: 'Response in case of errored service requests'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorDescription'
+      headers:
+        x-correlator:
+          schema: 
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+        backend-time:
+          schema:
+            type: integer
+            example: 850
+          description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+    responseForErroredOamRequests:
+      description: 'Response in case of errored OaM requests'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorDescription'
+  schemas:
+    errorDescription:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: operation-key
+    basicAuth:
+      type: http
+      scheme: basic
+

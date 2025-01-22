@@ -1,0 +1,34 @@
+/v1/provide-mediator-instance:
+  type: object
+  required:
+    - mediator-instance-ip-address
+    - mediator-instance-netconf-port
+  properties:
+    mediator-instance-ip-address:
+      type: string
+    mediator-instance-netconf-port:
+      type: integer
+
+/v1/dismantle-mediator-instance:
+
+/v1/list-mediator-instances:
+  type: array
+  items:
+    type: object
+    required:
+      - device-name
+      - device-kind-name
+      - mediator-instance-ip-address
+      - mediator-instance-netconf-port
+      - device-ip-address
+    properties:
+      device-name:
+        type: string
+      device-kind-name:
+        type: string
+      mediator-instance-ip-address:
+        type: string
+      mediator-instance-netconf-port:
+        type: integer
+      device-ip-address:
+        type: string
