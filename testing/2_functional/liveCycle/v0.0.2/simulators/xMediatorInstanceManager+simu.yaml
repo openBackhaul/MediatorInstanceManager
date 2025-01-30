@@ -41,7 +41,7 @@ paths:
                     device-kind-name: 'RTN_900'
                     mediator-instance-ip-address: '10.118.132.2'
                     mediator-instance-netconf-port: 1024
-                    device-ip-address: '10.118.134.256'
+                    device-ip-address: '10.118.134.255'
   /v1/provide-mediator-instance:
     post:
       summary: 'Creates mediator instance'
@@ -125,7 +125,7 @@ paths:
                     device-kind-name: 'RTN_900'
                     mediator-instance-ip-address: '10.118.132.2'
                     mediator-instance-netconf-port: 1024
-                    device-ip-address: '10.118.134.256'
+                    device-ip-address: '10.118.134.255'
   /v1/dismantle-mediator-instance:
     post:
       summary: 'Deletes mediator instance'
@@ -180,7 +180,7 @@ paths:
                     device-kind-name: 'RTN_900'
                     mediator-instance-ip-address: '10.118.132.2'
                     mediator-instance-netconf-port: 1024
-                    device-ip-address: '10.118.134.256'
+                    device-ip-address: '10.118.134.255'
 
 
 ########################################
